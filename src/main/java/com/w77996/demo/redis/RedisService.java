@@ -1,4 +1,4 @@
--【-【=-0【【package com.w77996.demo.redis;
+package com.w77996.demo.redis;
 
 import com.alibaba.fastjson.JSON;
 import com.w77996.demo.redis.RedisConfig;
@@ -11,11 +11,10 @@ import redis.clients.jedis.JedisPoolConfig;
 
 @Service
 public class RedisService {
+
     @Autowired
     JedisPool jedisPool;
 
-    @Autowired
-    RedisConfig redisConfig;
 
     public <T> boolean set(String key, T value, int expireSeconds) {
         Jedis jedis = null;
@@ -87,13 +86,5 @@ public class RedisService {
         }
     }
 
-    @Bean
-    public JedisPool JedisPoolFactory() {
-        JedisPoolConfig poolConfig = new JedisPoolConfig();
-        poolConfig.setMaxIdle(redisConfig.getPoolMaxIdle());
-        poolConfig.setMaxTotal(redisConfig.getPoolMaxTotal());
-        poolConfig.setMaxWaitMillis(redisConfig.getPoolMaxWait() * 1000);
-        JedisPool jp = new JedisPool(poolConfig, redisConfig.getHost(), redisConfig.getPort(), redisConfig.getTimeout() * 1000);
-        return jp;
-    }
+
 }
